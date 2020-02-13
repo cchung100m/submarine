@@ -46,18 +46,16 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome', 'Firefox'],
-    customLaunchers: [{
+    customLaunchers: {
       ChromeHeadlessCI: {
         base: 'ChromeHeadless',
         flags: ['--no-sandbox']
-      }
-    },
-    {
+      },
       FirefoxHeadlessCI: {
         base: 'Firefox',
         flags: [ '-headless' ],        
       }
-    }],
+    },
     singleRun: false,
     restartOnFileChange: true
   });
