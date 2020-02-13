@@ -163,6 +163,7 @@ matrix:
       dist: xenial
       addons:
         chrome: stable
+        firefox: latest
       env: PROFILE="-Phadoop-2.9" BUILD_FLAG="clean package -DskipTests" TEST_FLAG="verify -DskipRat -am" TEST_MODULES="-pl submarine-test/e2e" TEST_PROJECTS=""
 
     # Template disable by SUBMARINE-381
