@@ -42,7 +42,7 @@ public class loginIT extends AbstractSubmarineIT {
 
   @Test
   public void loginUser() throws Exception {
-    List<String> browserList = Arrays. asList("chrome", "firefox");
+    String[] browserList = {"chrome", "firefox"};
     for (string name : browserList ) {
       driver =  WebDriverManager.getWebDriver(name);
       LOG.info("Start to login user to submarine workbench.");
