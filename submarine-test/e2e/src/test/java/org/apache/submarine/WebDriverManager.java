@@ -40,26 +40,30 @@ public class WebDriverManager {
 
   private static String webDriverPath = "";
 
-  public static WebDriver getWebDriver() {
-    WebDriver driver = null;
+  private static WebDriver driver = null;
 
-    if (driver == null) {
-      try {
-        WebDriverProvider provide = new ChromeWebDriverProvider();
-        driver = generateWebDriver(provide);
-      } catch (Exception e) {
-        LOG.error("Exception in WebDriverManager while ChromeDriver ", e);
-      }
-    }
+  public static WebDriver getWebDriver(string browserName) {
 
-    if (driver == null) {
-      try {
-        WebDriverProvider provide = new FirefoxWebDriverProvider();
-        driver = generateWebDriver(provide);
-      } catch (Exception e) {
-        LOG.error("Exception in WebDriverManager while FireFox Driver ", e);
-      }
-    }
+    switch (browserName){
+      case "chrome":
+        try {
+          WebDriverProvider provide = new ChromeWebDriverProvider();
+          driver = generateWebDriver(provide);
+        } catch (Exception e) {
+          LOG.error("Exception in WebDriverManager while ChromeDriver ", e);
+        }
+        break;
+      case "firefox":
+        try {
+          WebDriverProvider provide = new FirefoxWebDriverProvider();
+          driver = generateWebDriver(provide);
+        } catch (Exception e) {
+          LOG.error("Exception in WebDriverManager while FireFox Driver ", e);
+        }
+        break;
+      default: 
+        LOG.error("UnImplemented Web Driver in WebDriverManager");       
+    } // end switch
 
     String url;
     if (System.getenv("url") != null) {

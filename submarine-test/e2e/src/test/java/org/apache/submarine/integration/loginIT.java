@@ -32,7 +32,6 @@ public class loginIT extends AbstractSubmarineIT {
   @BeforeClass
   public static void startUp(){
     printSubmarineLog();
-    driver =  WebDriverManager.getWebDriver();
   }
 
   @AfterClass
@@ -43,12 +42,16 @@ public class loginIT extends AbstractSubmarineIT {
 
   @Test
   public void loginUser() throws Exception {
-    LOG.info("Start to login user to submarine workbench.");
-    pollingWait(By.cssSelector("input[ng-reflect-name='userName']"), MAX_BROWSER_TIMEOUT_SEC).sendKeys("admin");
-    pollingWait(By.cssSelector("input[ng-reflect-name='password']"), MAX_BROWSER_TIMEOUT_SEC).sendKeys("admin");
-    clickAndWait(By.cssSelector("button[class='login-form-button ant-btn ant-btn-primary']"));
-    // Validate login result.
-    pollingWait(By.cssSelector("a[routerlink='/workbench/dashboard']"), MAX_BROWSER_TIMEOUT_SEC);
-    LOG.info("User login is done.");
+    List<String> browserList = Arrays. asList("chrome", "firefox");
+    for (string name : browserList ) {
+      driver =  WebDriverManager.getWebDriver(name);
+      LOG.info("Start to login user to submarine workbench.");
+      pollingWait(By.cssSelector("input[ng-reflect-name='userName']"), MAX_BROWSER_TIMEOUT_SEC).sendKeys("admin");
+      pollingWait(By.cssSelector("input[ng-reflect-name='password']"), MAX_BROWSER_TIMEOUT_SEC).sendKeys("admin");
+      clickAndWait(By.cssSelector("button[class='login-form-button ant-btn ant-btn-primary']"));
+      // Validate login result.
+      pollingWait(By.cssSelector("a[routerlink='/workbench/dashboard']"), MAX_BROWSER_TIMEOUT_SEC);
+      LOG.info("User login is done.");
+    }
   }
 }
