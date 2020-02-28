@@ -204,8 +204,6 @@ matrix:
       script:
         - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
         - npm run test -- --no-watch --no-progress --browsers=FirefoxHeadless
-        - npm install -g webdriver-manager
-        - npm run webdriver-manager update
         - npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
       env: BUILD_FLAG="clean package -DskipTests" TEST_FLAG="test -DskipRat -am" MODULES="-pl org.apache.submarine:workbench-web-ng" TEST_MODULES="-pl org.apache.submarine:workbench-web-ng" TEST_PROJECTS=""
 
