@@ -36,8 +36,6 @@ public class WebDriverManager {
 
   private static String downLoadsDir = "";
 
-  private static boolean webDriverIsDownloaded = false;
-
   private static String webDriverPath = "";
 
   private static WebDriver driver = null;
@@ -106,13 +104,8 @@ public class WebDriverManager {
   }
 
   private static WebDriver generateWebDriver(WebDriverProvider provide) {
-    if (!webDriverIsDownloaded) {
       String webDriverVersion = provide.getWebDriverVersion();
       webDriverPath = provide.downloadWebDriver(webDriverVersion);
-      if (StringUtils.isNotBlank(webDriverPath)) {
-        webDriverIsDownloaded = true;
-      }
-    }
     WebDriver driver = provide.createWebDriver(webDriverPath);
     return driver;
   }
