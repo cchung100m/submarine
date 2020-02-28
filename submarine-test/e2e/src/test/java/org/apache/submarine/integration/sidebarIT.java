@@ -49,9 +49,10 @@ public class sidebarIT extends AbstractSubmarineIT {
 
     String[] browserList = {"chrome", "firefox"};
     for (String name : browserList ) {
+      
       driver =  WebDriverManager.getWebDriver(name);
 
-      LOG.info("sidebarNavigation" + name);
+      LOG.info("sidebarNavigation : " + name);
 
       // Login
       LOG.info("Login");

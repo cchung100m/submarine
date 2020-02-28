@@ -76,7 +76,7 @@ public class WebDriverManager {
         TimeUnit.SECONDS);
     driver.get(url);
 
-    while (System.currentTimeMillis() - start < 60 * 1000) {
+    while (System.currentTimeMillis() - start < 60 * 5000) {
       // wait for page load
       try {
         (new WebDriverWait(driver, 60)).until(new ExpectedCondition<Boolean>() {

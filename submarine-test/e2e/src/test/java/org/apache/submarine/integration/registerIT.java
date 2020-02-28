@@ -48,7 +48,9 @@ public class registerIT extends AbstractSubmarineIT {
 
     String[] browserList = {"chrome", "firefox"};
     for (String name : browserList ) {
+
       driver =  WebDriverManager.getWebDriver(name);
+      
       LOG.info("registerFrontEndInvalidTest : " + name);
     
       // Navigate from Login page to Registration page
