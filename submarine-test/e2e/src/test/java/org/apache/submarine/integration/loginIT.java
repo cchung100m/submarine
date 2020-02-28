@@ -43,7 +43,7 @@ public class loginIT extends AbstractSubmarineIT {
   @Test
   public void loginUser() throws Exception {
     String[] browserList = {"chrome", "firefox"};
-    for (string name : browserList ) {
+    for (String name : browserList ) {
       driver =  WebDriverManager.getWebDriver(name);
       LOG.info("Start to login user to submarine workbench.");
       pollingWait(By.cssSelector("input[ng-reflect-name='userName']"), MAX_BROWSER_TIMEOUT_SEC).sendKeys("admin");

@@ -42,7 +42,7 @@ public class WebDriverManager {
 
   private static WebDriver driver = null;
 
-  public static WebDriver getWebDriver(string browserName) {
+  public static WebDriver getWebDriver(String browserName) {
 
     switch (browserName){
       case "chrome":

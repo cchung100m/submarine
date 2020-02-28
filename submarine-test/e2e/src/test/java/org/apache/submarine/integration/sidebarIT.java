@@ -34,10 +34,10 @@ public class sidebarIT extends AbstractSubmarineIT {
 
   public final static Logger LOG = LoggerFactory.getLogger(sidebarIT.class);
 
-  @BeforeClass
-  public static void startUp(){
-    driver =  WebDriverManager.getWebDriver();
-  }
+  // @BeforeClass
+  // public static void startUp(){
+  //   driver =  WebDriverManager.getWebDriver();
+  // }
 
   @AfterClass
   public static void tearDown(){
@@ -46,38 +46,44 @@ public class sidebarIT extends AbstractSubmarineIT {
 
   @Test
   public void sidebarNavigation() throws Exception {
-    // Login
-    LOG.info("Login");
-    pollingWait(By.cssSelector("input[ng-reflect-name='userName']"), MAX_BROWSER_TIMEOUT_SEC).sendKeys("admin");
-    pollingWait(By.cssSelector("input[ng-reflect-name='password']"), MAX_BROWSER_TIMEOUT_SEC).sendKeys("admin");
-    clickAndWait(By.cssSelector("button[class='login-form-button ant-btn ant-btn-primary']"));
-    pollingWait(By.cssSelector("a[routerlink='/workbench/dashboard']"), MAX_BROWSER_TIMEOUT_SEC);
 
-    // Start Routing & Navigation in sidebar 
-    LOG.info("Start Routing & Navigation in sidebar");
-    pollingWait(By.xpath("//span[contains(text(), \"Workspace\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
-    Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/workspace");
-    pollingWait(By.xpath("//span[contains(text(), \"Interpreter\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
-    Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/interpreter");
-    pollingWait(By.xpath("//span[contains(text(), \"Job\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
-    Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/job");
-    pollingWait(By.xpath("//span[contains(text(), \"Data\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
-    Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/data");
-    pollingWait(By.xpath("//span[contains(text(), \"Model\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
-    Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/model");
-    pollingWait(By.xpath("//span[contains(text(), \"Manager\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
-    pollingWait(By.xpath("//a[@href='/workbench/manager/user']"), MAX_BROWSER_TIMEOUT_SEC).click();
-    SubmarineITUtils.sleep( 5000, true);
+    String[] browserList = {"chrome", "firefox"};
+    for (String name : browserList ) {
+      driver =  WebDriverManager.getWebDriver(name);
 
-    // Lazy-loading
-    WebDriverWait wait = new WebDriverWait( driver, 15, 5000);
-    pollingWait(By.xpath("//a[@href='/workbench/manager/user']"), MAX_BROWSER_TIMEOUT_SEC).click();
-    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='ant-breadcrumb-link ng-star-inserted']")));
-    Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/manager/user");
+      // Login
+      LOG.info("Login");
+      pollingWait(By.cssSelector("input[ng-reflect-name='userName']"), MAX_BROWSER_TIMEOUT_SEC).sendKeys("admin");
+      pollingWait(By.cssSelector("input[ng-reflect-name='password']"), MAX_BROWSER_TIMEOUT_SEC).sendKeys("admin");
+      clickAndWait(By.cssSelector("button[class='login-form-button ant-btn ant-btn-primary']"));
+      pollingWait(By.cssSelector("a[routerlink='/workbench/dashboard']"), MAX_BROWSER_TIMEOUT_SEC);
 
-    pollingWait(By.xpath("//a[@href='/workbench/manager/data-dict']"), MAX_BROWSER_TIMEOUT_SEC).click();
-    Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/manager/data-dict");
-    pollingWait(By.xpath("//span[contains(text(), \"Home\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
-    Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/home"); 
+      // Start Routing & Navigation in sidebar 
+      LOG.info("Start Routing & Navigation in sidebar");
+      pollingWait(By.xpath("//span[contains(text(), \"Workspace\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
+      Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/workspace");
+      pollingWait(By.xpath("//span[contains(text(), \"Interpreter\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
+      Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/interpreter");
+      pollingWait(By.xpath("//span[contains(text(), \"Job\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
+      Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/job");
+      pollingWait(By.xpath("//span[contains(text(), \"Data\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
+      Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/data");
+      pollingWait(By.xpath("//span[contains(text(), \"Model\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
+      Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/model");
+      pollingWait(By.xpath("//span[contains(text(), \"Manager\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
+      pollingWait(By.xpath("//a[@href='/workbench/manager/user']"), MAX_BROWSER_TIMEOUT_SEC).click();
+      SubmarineITUtils.sleep( 5000, true);
+
+      // Lazy-loading
+      WebDriverWait wait = new WebDriverWait( driver, 15, 5000);
+      pollingWait(By.xpath("//a[@href='/workbench/manager/user']"), MAX_BROWSER_TIMEOUT_SEC).click();
+      wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='ant-breadcrumb-link ng-star-inserted']")));
+      Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/manager/user");
+
+      pollingWait(By.xpath("//a[@href='/workbench/manager/data-dict']"), MAX_BROWSER_TIMEOUT_SEC).click();
+      Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/manager/data-dict");
+      pollingWait(By.xpath("//span[contains(text(), \"Home\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
+      Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/home"); 
+    }
   }
 }
