@@ -38,10 +38,10 @@ public class registerIT extends AbstractSubmarineIT {
   //   driver =  WebDriverManager.getWebDriver();
   // }
 
-  @AfterClass
-  public static void tearDown(){
-    driver.quit();
-  }
+  // @AfterClass
+  // public static void tearDown(){
+  //   driver.quit();
+  // }
 
   @Test
   public void registerFrontEndInvalidTest() throws Exception {
@@ -49,6 +49,7 @@ public class registerIT extends AbstractSubmarineIT {
     String[] browserList = {"chrome", "firefox"};
     for (String name : browserList ) {
       driver =  WebDriverManager.getWebDriver(name);
+      LOG.info("registerFrontEndInvalidTest : " + name);
     
       // Navigate from Login page to Registration page
       LOG.info("Navigate from Login page to Registration page");
@@ -97,8 +98,10 @@ public class registerIT extends AbstractSubmarineIT {
       pollingWait(By.cssSelector("input[formcontrolname='checkPassword']"), MAX_BROWSER_TIMEOUT_SEC).sendKeys("1234"); // "1234" != "testtesttest"
       Assert.assertEquals( driver.findElements(By.xpath("//div[contains(text(), \"Passwords must match!\")]")).size(), 1);
       pollingWait(By.xpath("//a[@href='/user/login']"), MAX_BROWSER_TIMEOUT_SEC).click();
-      Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/user/login"); 
-    }
+      Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/user/login");
+
+      driver.quit();
+    } // end for
   }
 
   @Test
@@ -107,6 +110,8 @@ public class registerIT extends AbstractSubmarineIT {
     String[] browserList = {"chrome", "firefox"};
     for (String name : browserList ) {
       driver =  WebDriverManager.getWebDriver(name);
+
+      LOG.info("registerFrontEndValidTest : " + name);
 
       // Sign-Up successfully
       pollingWait(By.xpath("//a[contains(text(), \"Create an account!\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
@@ -118,6 +123,8 @@ public class registerIT extends AbstractSubmarineIT {
       pollingWait(By.cssSelector("label[formcontrolname='agree']"), MAX_BROWSER_TIMEOUT_SEC).click();
       pollingWait(By.cssSelector("button[class='ant-btn ant-btn-primary ant-btn-block']"), MAX_BROWSER_TIMEOUT_SEC).click(); 
       Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/user/login");
-    }
+      
+      driver.quit();
+    } // end for
   }
 }

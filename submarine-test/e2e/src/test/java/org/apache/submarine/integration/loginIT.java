@@ -37,7 +37,6 @@ public class loginIT extends AbstractSubmarineIT {
   @AfterClass
   public static void tearDown(){
     printSubmarineLog();
-    driver.quit();
   }
 
   @Test
@@ -45,6 +44,9 @@ public class loginIT extends AbstractSubmarineIT {
     String[] browserList = {"chrome", "firefox"};
     for (String name : browserList ) {
       driver =  WebDriverManager.getWebDriver(name);
+      
+      log.info("loginUser" + name);
+
       LOG.info("Start to login user to submarine workbench.");
       pollingWait(By.cssSelector("input[ng-reflect-name='userName']"), MAX_BROWSER_TIMEOUT_SEC).sendKeys("admin");
       pollingWait(By.cssSelector("input[ng-reflect-name='password']"), MAX_BROWSER_TIMEOUT_SEC).sendKeys("admin");
@@ -52,6 +54,8 @@ public class loginIT extends AbstractSubmarineIT {
       // Validate login result.
       pollingWait(By.cssSelector("a[routerlink='/workbench/dashboard']"), MAX_BROWSER_TIMEOUT_SEC);
       LOG.info("User login is done.");
-    }
+
+      driver.quit();
+    } // end for
   }
 }

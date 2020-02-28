@@ -39,10 +39,10 @@ public class sidebarIT extends AbstractSubmarineIT {
   //   driver =  WebDriverManager.getWebDriver();
   // }
 
-  @AfterClass
-  public static void tearDown(){
-    driver.quit();
-  }
+  // @AfterClass
+  // public static void tearDown(){
+  //   driver.quit();
+  // }
 
   @Test
   public void sidebarNavigation() throws Exception {
@@ -50,6 +50,8 @@ public class sidebarIT extends AbstractSubmarineIT {
     String[] browserList = {"chrome", "firefox"};
     for (String name : browserList ) {
       driver =  WebDriverManager.getWebDriver(name);
+
+      log.info("sidebarNavigation" + name);
 
       // Login
       LOG.info("Login");
@@ -84,6 +86,8 @@ public class sidebarIT extends AbstractSubmarineIT {
       Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/manager/data-dict");
       pollingWait(By.xpath("//span[contains(text(), \"Home\")]"), MAX_BROWSER_TIMEOUT_SEC).click();
       Assert.assertEquals(driver.getCurrentUrl(), "http://localhost:8080/workbench/home"); 
-    }
+      
+      driver.quit();
+    } // end for
   }
 }

@@ -104,8 +104,8 @@ public class WebDriverManager {
   }
 
   private static WebDriver generateWebDriver(WebDriverProvider provide) {
-      String webDriverVersion = provide.getWebDriverVersion();
-      webDriverPath = provide.downloadWebDriver(webDriverVersion);
+    String webDriverVersion = provide.getWebDriverVersion();
+    webDriverPath = provide.downloadWebDriver(webDriverVersion);
     WebDriver driver = provide.createWebDriver(webDriverPath);
     return driver;
   }
