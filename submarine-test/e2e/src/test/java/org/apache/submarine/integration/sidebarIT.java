@@ -51,7 +51,7 @@ public class sidebarIT extends AbstractSubmarineIT {
     for (String name : browserList ) {
       driver =  WebDriverManager.getWebDriver(name);
 
-      log.info("sidebarNavigation" + name);
+      LOG.info("sidebarNavigation" + name);
 
       // Login
       LOG.info("Login");
