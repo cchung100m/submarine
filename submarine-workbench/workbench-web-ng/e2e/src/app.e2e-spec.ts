@@ -28,7 +28,7 @@ describe('workspace-project App', () => {
   });
 
   it('should display submarine', () => {
-    page.navigateTo();
+    // page.navigateTo();
     // expect(page.getTitleText()).toEqual('Submarine');
   });
 
