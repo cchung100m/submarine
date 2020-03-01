@@ -38,7 +38,7 @@ import java.net.URL;
 public class FirefoxWebDriverProvider implements WebDriverProvider {
 
   protected final static Logger LOG = LoggerFactory.getLogger(AbstractSubmarineIT.class);
-  private static String GECKODRIVER_VERSION = "0.25.0";
+  private static String GECKODRIVER_VERSION = "0.26.0";
   public final static String geckoDriverName = "geckodriver";
 
   @Override
