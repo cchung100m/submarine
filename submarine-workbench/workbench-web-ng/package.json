@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "webdriver": "webdriver-manager update --ignore_ssl = true"
+    "webdriver": "webdriver-manager update"
   },
   "private": true,
   "dependencies": {
@@ -51,6 +51,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "webdriver-manager": "13.0.0"
   }
 }
