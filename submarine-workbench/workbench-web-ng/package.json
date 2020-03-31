@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "webdriver": "webdriver-manager update --ignore_ssl --gecko true"
+    "webdriver": "webdriver-manager update --versions.gecko=v0.25.0"
   },
   "private": true,
   "dependencies": {
