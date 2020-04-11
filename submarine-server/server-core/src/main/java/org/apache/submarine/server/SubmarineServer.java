@@ -124,7 +124,7 @@ public class SubmarineServer extends ResourceConfig {
     setupClusterServer();
 
     // Helper function aims to check the connection with MySQL server during initialization.
-    initialMySQLServerConnection();
+    initialDatabaseConnection();
 
     rpcServer = SubmarineRpcServer.startRpcServer();
     startServer();
@@ -166,16 +166,15 @@ public class SubmarineServer extends ResourceConfig {
   }
 
   // initialMySQLServer() aims to check the connection with MySQL server during initialization.
-  private static void initialMySQLServerConnection() throws InterruptedException {
+  private static void initialDatabaseConnection() {
       LOG.info("Initialization: connecting to the MySQL server...");
       try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
           Connection conn = sqlSession.getConnection();
           if (null != conn) {
-              LOG.info("Connecting to the MySQL server successfully!");
+              LOG.info("Connecting to the database successfully!");
           }
       } catch (Exception e) {
-          LOG.error("Connecting to the MySQL server failed");
-          throw e;
+          LOG.error("Connecting to the database failed.");
       }
   }
 
