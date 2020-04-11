@@ -18,9 +18,11 @@
  */
 package org.apache.submarine.server;
 
+import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.submarine.server.rest.provider.YamlEntityProvider;
 import org.apache.submarine.server.rpc.SubmarineRpcServer;
+import org.apache.submarine.server.workbench.database.MyBatisUtil;
 import org.apache.submarine.server.workbench.websocket.NotebookServer;
 import org.apache.submarine.commons.cluster.ClusterServer;
 import org.eclipse.jetty.http.HttpVersion;
@@ -63,6 +65,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
 
 public class SubmarineServer extends ResourceConfig {
   private static final Logger LOG = LoggerFactory.getLogger(SubmarineServer.class);
@@ -120,6 +123,9 @@ public class SubmarineServer extends ResourceConfig {
     // Cluster Server
     setupClusterServer();
 
+    // Helper function aims to check the connection with MySQL server during initialization.
+    initialMySQLServerConnection();
+
     rpcServer = SubmarineRpcServer.startRpcServer();
     startServer();
   }
@@ -157,6 +163,20 @@ public class SubmarineServer extends ResourceConfig {
                 }));
 
     jettyWebServer.join();
+  }
+
+  // initialMySQLServer() aims to check the connection with MySQL server during initialization.
+  private static void initialMySQLServerConnection() throws InterruptedException {
+      LOG.info("Initialization: connecting to the MySQL server...");
+      try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+          Connection conn = sqlSession.getConnection();
+          if (null != conn) {
+              LOG.info("Connecting to the MySQL server successfully!");
+          }
+      } catch (Exception e) {
+          LOG.error("Connecting to the MySQL server failed");
+          throw e;
+      }
   }
 
   private static void setupRestApiContextHandler(WebAppContext webapp, SubmarineConfiguration conf) {
