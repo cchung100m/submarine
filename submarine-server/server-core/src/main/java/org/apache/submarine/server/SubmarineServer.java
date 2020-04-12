@@ -176,8 +176,8 @@ public class SubmarineServer extends ResourceConfig {
         LOG.error("Connecting to the database failed, cannot get connection from session.");
       }
     } catch (Exception e) {
-        LOG.error("Connecting to the database failed.");
-        throw e;
+      LOG.error("Connecting to the database failed.");
+      throw e;
     }
   }
 
