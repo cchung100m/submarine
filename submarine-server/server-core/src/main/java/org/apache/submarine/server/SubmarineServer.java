@@ -166,7 +166,7 @@ public class SubmarineServer extends ResourceConfig {
   }
 
   // initialMySQLServer() aims to check the connection with MySQL server during initialization.
-  private static void initialDatabaseConnection() throws InterruptedException {
+  private static void initialDatabaseConnection() {
     LOG.info("Initialization: connecting to the MySQL server...");
     try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
       Connection conn = sqlSession.getConnection();
@@ -176,8 +176,7 @@ public class SubmarineServer extends ResourceConfig {
         LOG.error("Connecting to the database failed, cannot get connection from session.");
       }
     } catch (Exception e) {
-      LOG.error("Connecting to the database failed.");
-      throw e;
+      LOG.error("Connecting to the database failed, cannot build the session.");
     }
   }
 
