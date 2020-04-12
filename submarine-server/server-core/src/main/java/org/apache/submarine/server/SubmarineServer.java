@@ -173,10 +173,10 @@ public class SubmarineServer extends ResourceConfig {
       if (null != conn) {
         LOG.info("Connecting to the database successfully!");
       } else {
-        LOG.error("Connecting to the database failed, cannot get connection from session.");
+        LOG.warn("Connecting to the database failed, cannot get connection from session.");
       }
     } catch (Exception e) {
-      LOG.error("Connecting to the database failed, cannot build the session.");
+      LOG.warn("Connecting to the database failed, cannot build the session.");
     }
   }
 
