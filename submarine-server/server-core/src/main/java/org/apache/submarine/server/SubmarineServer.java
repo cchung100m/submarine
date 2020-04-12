@@ -166,16 +166,19 @@ public class SubmarineServer extends ResourceConfig {
   }
 
   // initialMySQLServer() aims to check the connection with MySQL server during initialization.
-  private static void initialDatabaseConnection() {
-      LOG.info("Initialization: connecting to the MySQL server...");
-      try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
-          Connection conn = sqlSession.getConnection();
-          if (null != conn) {
-              LOG.info("Connecting to the database successfully!");
-          }
-      } catch (Exception e) {
-          LOG.error("Connecting to the database failed.");
+  private static void initialDatabaseConnection() throws InterruptedException {
+    LOG.info("Initialization: connecting to the MySQL server...");
+    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+      Connection conn = sqlSession.getConnection();
+      if (null != conn) {
+        LOG.info("Connecting to the database successfully!");
+      } else {
+        LOG.error("Connecting to the database failed, cannot get connection from session.");
       }
+    } catch (Exception e) {
+        LOG.error("Connecting to the database failed.");
+        throw e;
+    }
   }
 
   private static void setupRestApiContextHandler(WebAppContext webapp, SubmarineConfiguration conf) {
