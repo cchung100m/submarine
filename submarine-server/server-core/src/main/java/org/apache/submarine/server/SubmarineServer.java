@@ -172,14 +172,18 @@ public class SubmarineServer extends ResourceConfig {
       Connection conn = sqlSession.getConnection();
       if (null != conn) {
         LOG.info("Connecting to the database successfully!");
+        sqlSession.close();
         return;
+      } else {
+        LOG.error("Connecting to the database failed, cannot get connection from session.");
+        sqlSession.close();
+        System.exit(-1);
       }
     } catch (Exception e) {
       LOG.error("Connecting to the database failed, cannot build the session.");
       LOG.error(e.getMessage(), e);
+      System.exit(-1);
     }
-    LOG.error("Connecting to the database failed, cannot get connection from session.");
-    System.exit(-1);
   }
 
   private static void setupRestApiContextHandler(WebAppContext webapp, SubmarineConfiguration conf) {
