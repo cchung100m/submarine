@@ -124,7 +124,7 @@ public class SubmarineServer extends ResourceConfig {
     setupClusterServer();
 
     // Helper function aims to check the connection with MySQL server during initialization.
-    // initialDatabaseConnection();
+    initialDatabaseConnection();
 
     rpcServer = SubmarineRpcServer.startRpcServer();
     startServer();
@@ -172,14 +172,14 @@ public class SubmarineServer extends ResourceConfig {
       Connection conn = sqlSession.getConnection();
       if (null != conn) {
         LOG.info("Connecting to the database successfully!");
-      } else {
-        LOG.error("Connecting to the database failed, cannot get connection from session.");
+        return;
       }
     } catch (Exception e) {
       LOG.error("Connecting to the database failed, cannot build the session.");
       LOG.error(e.getMessage(), e);
-      System.exit(-1);
     }
+    LOG.error("Connecting to the database failed, cannot get connection from session.");
+    System.exit(-1);
   }
 
   private static void setupRestApiContextHandler(WebAppContext webapp, SubmarineConfiguration conf) {
