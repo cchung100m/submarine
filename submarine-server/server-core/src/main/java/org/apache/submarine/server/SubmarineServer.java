@@ -124,7 +124,7 @@ public class SubmarineServer extends ResourceConfig {
     setupClusterServer();
 
     // Helper function aims to check the connection with MySQL server during initialization.
-    initialDatabaseConnection();
+    //initialDatabaseConnection();
 
     rpcServer = SubmarineRpcServer.startRpcServer();
     startServer();
